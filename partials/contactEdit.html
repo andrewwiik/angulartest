@@ -2,27 +2,27 @@
         <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
     </button>
     <div class="modal-header">
-        <h3 class="modal-title">Edit product [ID: {{product.id}}]</h3>
+        <h3 class="modal-title">Edit contact [ID: {{contact.id}}]</h3>
     </div>
     <div class="modal-body">
-        <form name="product_form" class="form-horizontal" role="form" novalidate>
-            <form-element label="NAME" mod="product">
+        <form name="contact_form" class="form-horizontal" role="form" novalidate>
+            <form-element label="NAME" mod="contact">
                 <input type="text" class="form-control" name="name" placeholder="NAME" ng-model="contact.lname" ng-disabled="product.id" focus/>
             </form-element>
-            <form-element label="DESCRIPTION" mod="product">
+            <form-element label="DESCRIPTION" mod="contact">
             <textarea class="form-control" name="description" placeholder="DESCRIPTION" ng-model="contact.fname">{{product.fname}}</textarea>
             </form-element>
-            <form-element label="PRICE" mod="product">
+            <form-element label="PRICE" mod="contact">
                 <input type="text" name="price" class="form-control" placeholder="PRICE" ng-model="contact.mobilenumber"  only-numbers/>
                 <small class="errorMessage" ng-show="contact_form.mobilenumber.$dirty && contact_form.mobilenumber.$invalid"> Enter the price.</small>
             </form-element>
 
-           <form-element label="STOCK" mod="product">
+           <form-element label="STOCK" mod="contact">
                 <input type="text" name="stock" class="form-control" placeholder="STOCK" ng-model="contact.city"/>
                 <small class="errorMessage" ng-show="contact_form.city.$dirty && product_form.city.$invalid"> Enter the available stock.</small>
             </form-element>
 
-            <form-element label="PACKING" mod="product">
+            <form-element label="PACKING" mod="contact">
                 <input type="text" name="packing" class="form-control" placeholder="PACKING" ng-model="contact.adress"/>
                 <small class="errorMessage" ng-show="contact_form.adress.$dirty && contact_form.adress.$invalid"> Enter the Packing.</small>
             </form-element>
