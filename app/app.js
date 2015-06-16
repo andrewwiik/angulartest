@@ -5,7 +5,7 @@ app.config(['$routeProvider',
     $routeProvider.
     when('/', {
       title: 'Contacts',
-      templateUrl: 'partials/contact.html',
+      templateUrl: 'partials/contactS.html',
       controller: 'contactsCtrl'
     })
     .otherwise({
