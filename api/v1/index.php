@@ -19,13 +19,13 @@ delete(table name, where clause as array)
 
 
 // Products
-$app->get('/products', function() { 
+$app->get('/contacts', function() { 
     global $db;
-    $rows = $db->select("contacts","id,fname,lname,mobilenumber,landnumber,street,city,state,zipcode,relationship,photourl",array());
+    $rows = $db->select("contacts","id,fname,lname,mobilenumber,landnumber,street,city,state,zipcode",array());
     echoResponse(200, $rows);
 });
 
-$app->post('/products', function() use ($app) { 
+$app->post('/contacts', function() use ($app) { 
     $data = json_decode($app->request->getBody());
     $mandatory = array('name');
     global $db;
@@ -35,7 +35,7 @@ $app->post('/products', function() use ($app) {
     echoResponse(200, $rows);
 });
 
-$app->put('/products/:id', function($id) use ($app) { 
+$app->put('/contacts/:id', function($id) use ($app) { 
     $data = json_decode($app->request->getBody());
     $condition = array('id'=>$id);
     $mandatory = array();
@@ -46,7 +46,7 @@ $app->put('/products/:id', function($id) use ($app) {
     echoResponse(200, $rows);
 });
 
-$app->delete('/products/:id', function($id) { 
+$app->delete('/contacts/:id', function($id) { 
     global $db;
     $rows = $db->delete("products", array('id'=>$id));
     if($rows["status"]=="success")
