@@ -21,7 +21,7 @@ delete(table name, where clause as array)
 // Products
 $app->get('/products', function() { 
     global $db;
-    $rows = $db->select("products","id,sku,name,description,price,mrp,stock,image,packing,status",array());
+    $rows = $db->select("contacts","id,fname,lname,mobilenumber,landnumber,street,city,state,zipcode,relationship,photourl",array());
     echoResponse(200, $rows);
 });
 
@@ -42,7 +42,7 @@ $app->put('/products/:id', function($id) use ($app) {
     global $db;
     $rows = $db->update("products", $data, $condition, $mandatory);
     if($rows["status"]=="success")
-        $rows["message"] = "Product information updated successfully.";
+        $rows["message"] = "Contact Updated Successfully.";
     echoResponse(200, $rows);
 });
 
@@ -50,7 +50,7 @@ $app->delete('/products/:id', function($id) {
     global $db;
     $rows = $db->delete("products", array('id'=>$id));
     if($rows["status"]=="success")
-        $rows["message"] = "Product removed successfully.";
+        $rows["message"] = "Contact Removed Successfully.";
     echoResponse(200, $rows);
 });
 
