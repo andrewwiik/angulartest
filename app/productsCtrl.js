@@ -1,23 +1,23 @@
-app.controller('productsCtrl', function ($scope, $modal, $filter, Data) {
-    $scope.product = {};
-    Data.get('products').then(function(data){
-        $scope.products = data.data;
+app.controller('contactsCtrl', function ($scope, $modal, $filter, Data) {
+    $scope.contact = {};
+    Data.get('contacts').then(function(data){
+        $scope.contacts = data.data;
     });
-    $scope.changeProductStatus = function(product){
+    $scope.changeProductStatus = function(contact){
         product.status = (product.status=="Active" ? "Inactive" : "Active");
-        Data.put("products/"+product.id,{status:product.status});
+        Data.put("contacts/"+contact.id,{status:contact.status});
     };
-    $scope.deleteProduct = function(product){
-        if(confirm("Are you sure to remove the product")){
-            Data.delete("products/"+product.id).then(function(result){
-                $scope.products = _.without($scope.products, _.findWhere($scope.products, {id:product.id}));
+    $scope.deleteContact = function(contact){
+        if(confirm("Are you sure to remove this Contact")){
+            Data.delete("contacts/"+contact.id).then(function(result){
+                $scope.contacts = _.without($scope.contacts, _.findWhere($scope.contacts, {id:contact.id}));
             });
         }
     };
     $scope.open = function (p,size) {
         var modalInstance = $modal.open({
-          templateUrl: 'partials/productEdit.html',
-          controller: 'productEditCtrl',
+          templateUrl: 'partials/contactEdit.html',
+          controller: 'contactEditCtrl',
           size: size,
           resolve: {
             item: function () {
@@ -28,48 +28,48 @@ app.controller('productsCtrl', function ($scope, $modal, $filter, Data) {
         modalInstance.result.then(function(selectedObject) {
             if(selectedObject.save == "insert"){
                 $scope.products.push(selectedObject);
-                $scope.products = $filter('orderBy')($scope.products, 'id', 'reverse');
+                $scope.products = $filter('orderBy')($scope.contacts, 'id', 'reverse');
             }else if(selectedObject.save == "update"){
-                p.description = selectedObject.description;
-                p.price = selectedObject.price;
-                p.stock = selectedObject.stock;
-                p.packing = selectedObject.packing;
+                p.landnumber = selectedObject.description;
+                p.fname = selectedObject.price;
+                p.lname = selectedObject.stock;
+                p.mobilenumber = selectedObject.packing;
             }
         });
     };
     
  $scope.columns = [
-                    {text:"ID",predicate:"id",sortable:true,dataType:"number"},
-                    {text:"Name",predicate:"name",sortable:true},
-                    {text:"Price",predicate:"price",sortable:true},
-                    {text:"Stock",predicate:"stock",sortable:true},
-                    {text:"Packing",predicate:"packing",reverse:true,sortable:true,dataType:"number"},
-                    {text:"Description",predicate:"description",sortable:true},
-                    {text:"Status",predicate:"status",sortable:true},
+                    {text:"First Name",predicate:"fname",sortable:true},
+                    {text:"Last Name",predicate:"lname",sortable:true},
+                    {text:"Mobile Number",predicate:"mobilenumber",sortable:true,dataType:"number"},
+                    {text:"Home Number",predicate:"landnumber",sortable:true,dataType:"number"},
+                    {text:"Street",predicate:"address",reverse:true,sortable:true},
+                    {text:"City",predicate:"city",sortable:true},
+                    {text:"Zip Code",predicate:"zipcode",sortable:true},
                     {text:"Action",predicate:"",sortable:false}
                 ];
 
 });
 
 
-app.controller('productEditCtrl', function ($scope, $modalInstance, item, Data) {
+app.controller('contactEditCtrl', function ($scope, $modalInstance, item, Data) {
 
-  $scope.product = angular.copy(item);
+  $scope.contact = angular.copy(item);
         
         $scope.cancel = function () {
             $modalInstance.dismiss('Close');
         };
-        $scope.title = (item.id > 0) ? 'Edit Product' : 'Add Product';
-        $scope.buttonText = (item.id > 0) ? 'Update Product' : 'Add New Product';
+        $scope.title = (item.id > 0) ? 'Edit Contact' : 'Add Contact';
+        $scope.buttonText = (item.id > 0) ? 'Update Contact' : 'Add New Contact';
 
         var original = item;
         $scope.isClean = function() {
-            return angular.equals(original, $scope.product);
+            return angular.equals(original, $scope.contact);
         }
-        $scope.saveProduct = function (product) {
+        $scope.saveContact = function (contact) {
             product.uid = $scope.uid;
             if(product.id > 0){
-                Data.put('products/'+product.id, product).then(function (result) {
+                Data.put('contacts/'+product.id, product).then(function (result) {
                     if(result.status != 'error'){
                         var x = angular.copy(product);
                         x.save = 'update';
@@ -80,7 +80,7 @@ app.controller('productEditCtrl', function ($scope, $modalInstance, item, Data) 
                 });
             }else{
                 product.status = 'Active';
-                Data.post('products', product).then(function (result) {
+                Data.post('contacts', product).then(function (result) {
                     if(result.status != 'error'){
                         var x = angular.copy(product);
                         x.save = 'insert';
