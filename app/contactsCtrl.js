@@ -16,7 +16,7 @@ app.controller('contactsCtrl', function ($scope, $modal, $filter, Data) {
     };
     $scope.open = function (p,size) {
         var modalInstance = $modal.open({
-          templateUrl: 'partials/contactEdit.html',
+          templateUrl: 'partials/contactsEdit.html',
           controller: 'contactEditCtrl',
           size: size,
           resolve: {
@@ -52,7 +52,7 @@ app.controller('contactsCtrl', function ($scope, $modal, $filter, Data) {
 });
 
 
-app.controller('contactEditCtrl', function ($scope, $modalInstance, item, Data) {
+app.controller('contactsEditCtrl', function ($scope, $modalInstance, item, Data) {
 
   $scope.contact = angular.copy(item);
         
@@ -80,7 +80,7 @@ app.controller('contactEditCtrl', function ($scope, $modalInstance, item, Data) 
                 });
             }else{
                 product.status = 'Active';
-                Data.post('contacts', product).then(function (result) {
+                Data.post('contacts', contact).then(function (result) {
                     if(result.status != 'error'){
                         var x = angular.copy(product);
                         x.save = 'insert';
