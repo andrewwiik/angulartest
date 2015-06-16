@@ -3,7 +3,7 @@ app.controller('contactsCtrl', function ($scope, $modal, $filter, Data) {
     Data.get('contacts').then(function(data){
         $scope.contacts = data.data;
     });
-    $scope.changeProductStatus = function(contact){
+    $scope.changeContactStatus = function(contact){
         product.status = (product.status=="Active" ? "Inactive" : "Active");
         Data.put("contacts/"+contact.id,{status:contact.status});
     };
