@@ -29,9 +29,9 @@ $app->post('/contacts', function() use ($app) {
     $data = json_decode($app->request->getBody());
     $mandatory = array('name');
     global $db;
-    $rows = $db->insert("products", $data, $mandatory);
+    $rows = $db->insert("contacts", $data, $mandatory);
     if($rows["status"]=="success")
-        $rows["message"] = "Product added successfully.";
+        $rows["message"] = "Contact added successfully.";
     echoResponse(200, $rows);
 });
 
@@ -40,7 +40,7 @@ $app->put('/contacts/:id', function($id) use ($app) {
     $condition = array('id'=>$id);
     $mandatory = array();
     global $db;
-    $rows = $db->update("products", $data, $condition, $mandatory);
+    $rows = $db->update("contacts", $data, $condition, $mandatory);
     if($rows["status"]=="success")
         $rows["message"] = "Contact Updated Successfully.";
     echoResponse(200, $rows);
@@ -48,7 +48,7 @@ $app->put('/contacts/:id', function($id) use ($app) {
 
 $app->delete('/contacts/:id', function($id) { 
     global $db;
-    $rows = $db->delete("products", array('id'=>$id));
+    $rows = $db->delete("contacts", array('id'=>$id));
     if($rows["status"]=="success")
         $rows["message"] = "Contact Removed Successfully.";
     echoResponse(200, $rows);
