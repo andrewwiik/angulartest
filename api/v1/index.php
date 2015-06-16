@@ -27,7 +27,7 @@ $app->get('/contacts', function() {
 
 $app->post('/contacts', function() use ($app) { 
     $data = json_decode($app->request->getBody());
-    $mandatory = array('name');
+    $mandatory = array('fname');
     global $db;
     $rows = $db->insert("contacts", $data, $mandatory);
     if($rows["status"]=="success")
